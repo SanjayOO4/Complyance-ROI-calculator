@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple ROI Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      margin: 40px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background: #f0f0f0;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h2>ROI Calculator</h2>
+
+  <div class="container">
+    <label>Total Invoices per Month:</label>
+    <input type="number" id="invoices" placeholder="e.g. 500">
+
+    <label>Cost per Invoice (Manual):</label>
+    <input type="number" id="manualCost" placeholder="e.g. 20">
+
+    <label>Cost per Invoice (Automated):</label>
+    <input type="number" id="autoCost" placeholder="e.g. 5">
+
+    <label>Automation Setup Cost (one-time):</label>
+    <input type="number" id="setupCost" placeholder="e.g. 5000">
+
+    <button onclick="calculateROI()">Calculate ROI</button>
+
+    <div class="result" id="result">
+      Enter values and click Calculate.
+    </div>
+  </div>
+
+  <script>
+    function calculateROI() {
+      const invoices = parseFloat(document.getElementById('invoices').value);
+      const manualCost = parseFloat(document.getElementById('manualCost').value);
+      const autoCost = parseFloat(document.getElementById('autoCost').value);
+      const setupCost = parseFloat(document.getElementById('setupCost').value);
+
+      if (isNaN(invoices) || isNaN(manualCost) || isNaN(autoCost) || isNaN(setupCost)) {
+        document.getElementById('result').innerText = "⚠️ Please fill all fields correctly.";
+        return;
+      }
+
+      const monthlySavings = (manualCost - autoCost) * invoices;
+      const paybackMonths = setupCost / monthlySavings;
+      const annualROI = ((monthlySavings * 12 - setupCost) / setupCost) * 100;
+
+      document.getElementById('result').innerHTML = `
+        <b>Monthly Savings:</b> ₹${monthlySavings.toFixed(2)} <br>
+        <b>Payback Period:</b> ${paybackMonths.toFixed(1)} months <br>
+        <b>Annual ROI:</b> ${annualROI.toFixed(1)}%
+      `;
+    }
+  </script>
+</body>
+</html>
