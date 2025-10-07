@@ -30,4 +30,7 @@ This project is beginner-friendly and built using **HTML, CSS, and JavaScript**.
 ---
 
 ## 📁 Folder Structure
-
+Complyance-ROI-calculator/
+├── index.html # Main calculator page
+├── style.css # Styles for the calculator
+└── script.js # JavaScript logic for calculations
